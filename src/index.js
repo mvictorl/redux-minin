@@ -49,12 +49,15 @@ $asyncBtn.addEventListener('click', () => {
   // }, 2000)
 })
 
+$themeBtn.addEventListener('click', () => {
+  const newTheme = document.body.classList.contains('dark')
+    ? 'light'
+    : 'dark'
+  store.dispatch(changeTheme(newTheme))
+})
+
 store.subscribe(() => {
   $counter.textContent = store.getState().counter
+  document.body.className = store.getState().theme.value
 })
 store.dispatch({ type: 'APP_INIT' })
-
-$themeBtn.addEventListener('click', () => {
-  store.dispatch(changeTheme())
-  document.body.classList.toggle(store.getState().theme.value)
-})

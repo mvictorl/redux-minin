@@ -22,7 +22,7 @@ function counterReducer(state = 0, action) {
 function themeReducer(state = { value: null }, action) {
   switch (action.type) {
     case CHANGE_THEME:
-      return {...state, value: 'dark'}
+      return {...state, value: action.payload}
     default:
       return state
   }

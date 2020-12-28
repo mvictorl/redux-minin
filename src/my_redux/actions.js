@@ -17,6 +17,9 @@ export function asyncIncrement() {
   }
 }
 
-export function changeTheme() {
-  return { type: CHANGE_THEME }
+export function changeTheme(newTheme) {
+  return {
+    type: CHANGE_THEME,
+    payload: newTheme
+  }
 }
