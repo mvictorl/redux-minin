@@ -1,6 +1,6 @@
 import './styles.css'
 // import createStore from './createStore'
-import { applyMiddleware, createStore } from 'redux'
+import { applyMiddleware, createStore, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { logger } from 'redux-logger'
 import { rootReducer } from "./my_redux/rootReducer"
@@ -30,7 +30,10 @@ const $themeBtn = document.getElementById('theme')
 // const store = createStore(rootReducer, 0)
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, logger)
+  compose(
+    applyMiddleware(thunk, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )  
 )
 
 $addBtn.addEventListener('click', () => {
@@ -58,6 +61,11 @@ $themeBtn.addEventListener('click', () => {
 
 store.subscribe(() => {
   $counter.textContent = store.getState().counter
-  document.body.className = store.getState().theme.value
+  document.body.className = store.getState().theme.value;
+
+  [$addBtn, $subBtn, $themeBtn].forEach(btn => { 
+    btn.disabled = store.getState().theme.disabled 
+  })
 })
+
 store.dispatch({ type: 'APP_INIT' })

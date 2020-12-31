@@ -3,3 +3,6 @@ export const DECREMENT = 'DECREMENT'
 export const ASYNC_INC = 'ASYNC_INC'
 
 export const CHANGE_THEME = 'CHANGE_THEME'
+
+export const DISABLE_BTN = 'DISABLE_BTN'
+export const ENABLE_BTN = 'ENABLE_BTN'

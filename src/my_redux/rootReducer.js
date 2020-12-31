@@ -1,4 +1,4 @@
-import { ASYNC_INC, DECREMENT, INCREMENT, CHANGE_THEME } from "./types"
+import { ASYNC_INC, DECREMENT, INCREMENT, CHANGE_THEME, DISABLE_BTN, ENABLE_BTN } from "./types"
 import { combineReducers } from "redux"
 
 function counterReducer(state = 0, action) {
@@ -19,16 +19,37 @@ function counterReducer(state = 0, action) {
   }
 }
 
-function themeReducer(state = { value: null }, action) {
+const initialState = {
+  value: 'light',
+  disabled: false
+}
+
+function themeReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_THEME:
       return {...state, value: action.payload}
+    case DISABLE_BTN:
+      return {...state, disabled: true}
+    case ENABLE_BTN:
+      return {...state, disabled: false}
     default:
       return state
   }
 }
 
+// function btnActionReducer(state = true, action) {
+//   switch (action.type) {
+//     case DISABLE_BTN:
+//       return state = true
+//     case ENABLE_BTN:
+//       return state = false
+//     default:
+//       return state
+//   }
+// }
+
 export const rootReducer = combineReducers({
   counter: counterReducer,
-  theme: themeReducer
+  theme: themeReducer,
+  // btnActive: btnActionReducer
 })
